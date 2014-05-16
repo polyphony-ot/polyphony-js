@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "no-new": 0,
+        "quotes": [2, "double", "avoid-escape"],
+        "valid-jsdoc": 0
+    }
+}
