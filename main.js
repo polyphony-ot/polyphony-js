@@ -38,7 +38,15 @@ var libot = {};
         }
 
         if (isRunningInNode()) {
+            var ws = require("ws");
             module.exports = libot;
+            var server = new libot.Server(ws);
+            process.on("exit", function() {
+                server.close();
+            });
+        } else {
+            var client = new libot.Client("ws://localhost:8080");
+            client.send();
         }
     }());
 }());
