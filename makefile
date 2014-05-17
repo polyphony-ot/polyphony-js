@@ -16,7 +16,8 @@ CC=emcc
 CFLAGS=-std=c99 -Wall -funsigned-char -pedantic
 AR=ar
 
-SOURCES=$(wildcard lib/*.js) main.js
+SOURCES=$(wildcard lib/*.js)
+VENDORS=vendor/diff.js
 TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
@@ -82,16 +83,22 @@ test: $(BIN)/debug/libot.js $(LIBOT)/bin/debug/test.js
 
 # Misc. targets #
 
-$(BIN)/%/libot.js: $(BIN)/%/concat.js $(BIN)/%/libot-emscripten.js
+$(BIN)/%/libot.js: $(BIN)/%/concat.js $(BIN)/%/concat-vendors.js \
+$(BIN)/%/libot-emscripten.js
 	sed -e "/\/\* {{lib}} \*\// r $(BIN)/$*/concat.js" \
 	-e "/\/\* {{lib}} \*\// d" \
 	-e "/\/\* {{emscripten}} \*\// r $(BIN)/$*/libot-emscripten.js" \
 	-e "/\/\* {{emscripten}} \*\// d" \
+	-e "/\/\* {{vendors}} \*\// r $(BIN)/$*/concat-vendors.js" \
+	-e "/\/\* {{vendors}} \*\// d" \
 	main.js > $(BIN)/$*/libot.js
 
-$(BIN)/%/concat.js: $(SOURCES)
-	eslint lib/*.js
-	cat lib/*.js > $(BIN)/$*/concat.js
+$(BIN)/%/concat.js: $(SOURCES) main.js
+	eslint $(SOURCES)
+	cat $(SOURCES) > $(BIN)/$*/concat.js
+
+$(BIN)/%/concat-vendors.js: $(VENDORS)
+	cat $(VENDORS) > $(BIN)/$*/concat-vendors.js
 
 $(BIN)/docs/index.html: $(SOURCES)
 	jsdoc --pedantic --destination $(BIN)/docs lib/*.js main.js

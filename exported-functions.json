@@ -1,5 +1,8 @@
 [
 	"_ot_new_op",
+	"_ot_skip",
+	"_ot_insert",
+	"_ot_delete",
 	"_ot_snapshot",
 	"_ot_encode",
 	"_ot_decode",

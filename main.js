@@ -9,6 +9,8 @@
  * @author Greg Curtis <greg.r.curtis@gmail.com>
  */
 
+/* {{vendors}} */
+
 /** @namespace libot */
 var libot = {};
 
@@ -28,6 +30,10 @@ var libot = {};
 
         var cFuncs = {};
         cFuncs.otNewOp = Module.cwrap("ot_new_op", null, ["number", "string"]);
+        cFuncs.otSkip = Module.cwrap("ot_skip", null, ["number", "number"]);
+        cFuncs.otInsert = Module.cwrap("ot_insert", null, ["number", "string"]);
+        cFuncs.otDelete = Module.cwrap("ot_delete", null, ["number", "number"]);
+        cFuncs.otEncode = Module.cwrap("ot_encode", "string", ["number"]);
         cFuncs.otDecode = Module.cwrap("ot_decode", "number", ["number", "string"]);
         cFuncs.otSnapshot = Module.cwrap("ot_snapshot", "string", ["number"]);
 
@@ -44,9 +50,6 @@ var libot = {};
             process.on("exit", function() {
                 server.close();
             });
-        } else {
-            var client = new libot.Client("ws://localhost:8080");
-            client.send();
         }
     }());
 }());

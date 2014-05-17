@@ -4,6 +4,13 @@
 		<script src="bin/debug/libot.js"></script>
 	</head>
 	<body>
+		<textarea id="doc" cols="80" rows="40"></textarea>
+		<script type="text/javascript">
+			var textArea = document.getElementById("doc");
 
+			var client = new libot.Client("ws://localhost:8080");
+			var textareaEditor = new libot.TextareaEditor(textArea, client,
+				JsDiff);
+		</script>
 	</body>
 </html>
