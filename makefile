@@ -17,7 +17,7 @@ CFLAGS=-std=c99 -Wall -funsigned-char -pedantic
 AR=ar
 
 SOURCES=$(wildcard lib/*.js)
-VENDORS=vendor/diff.js
+VENDORS=
 TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
@@ -98,7 +98,11 @@ $(BIN)/%/concat.js: $(SOURCES) main.js
 	cat $(SOURCES) > $(BIN)/$*/concat.js
 
 $(BIN)/%/concat-vendors.js: $(VENDORS)
+ifdef VENDORS
 	cat $(VENDORS) > $(BIN)/$*/concat-vendors.js
+else
+	touch $(BIN)/$*/concat-vendors.js
+endif
 
 $(BIN)/docs/index.html: $(SOURCES)
 	jsdoc --pedantic --destination $(BIN)/docs lib/*.js main.js
