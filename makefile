@@ -57,7 +57,7 @@ exported-functions.json
 	mkdir -p $(BIN)/debug
 	$(CC) $(CFLAGS) -g4 \
 	-s EXPORTED_FUNCTIONS=@exported-functions.json \
-	-s NO_EXIT_RUNTIME=1 \
+	-s RESERVED_FUNCTION_POINTERS=4 \
 	-o $(BIN)/debug/libot-emscripten.js $(LIBOT)/bin/debug/libot.a
 
 debug: $(BIN)/debug/libot.js

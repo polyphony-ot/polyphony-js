@@ -29,13 +29,21 @@ var libot = {};
         "use strict";
 
         var cFuncs = {};
-        cFuncs.otNewOp = Module.cwrap("ot_new_op", null, ["number", "string"]);
+        cFuncs.otNewOp = Module.cwrap("ot_new_op", "number", ["number", "string"]);
         cFuncs.otSkip = Module.cwrap("ot_skip", null, ["number", "number"]);
         cFuncs.otInsert = Module.cwrap("ot_insert", null, ["number", "string"]);
         cFuncs.otDelete = Module.cwrap("ot_delete", null, ["number", "number"]);
         cFuncs.otEncode = Module.cwrap("ot_encode", "string", ["number"]);
         cFuncs.otDecode = Module.cwrap("ot_decode", "number", ["number", "string"]);
         cFuncs.otSnapshot = Module.cwrap("ot_snapshot", "string", ["number"]);
+        cFuncs.otNewClient = Module.cwrap("ot_new_client", "number", ["number", "number", "number"]);
+        cFuncs.otClientOpen = Module.cwrap("ot_client_open", null, ["number", "number"]);
+        cFuncs.otClientReceive = Module.cwrap("ot_client_receive", null, ["number", "string"]);
+        cFuncs.otClientApply = Module.cwrap("ot_client_apply", null, ["number", "number"]);
+        cFuncs.otNewServer = Module.cwrap("ot_new_server", "number", ["number", "number"]);
+        cFuncs.otServerOpen = Module.cwrap("ot_server_open", null, ["number", "number"]);
+        cFuncs.otServerReceive = Module.cwrap("ot_server_receive", null, ["number", "string"]);
+        libot.cFuncs = cFuncs;
 
         /* {{lib}} */
 

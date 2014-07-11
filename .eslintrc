@@ -2,6 +2,8 @@
     "globals": {
         "console": true,
         "libot": true,
+        "Runtime": true,
+        "Module": true,
         "cFuncs": true
     },
     "rules": {

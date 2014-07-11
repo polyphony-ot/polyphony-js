@@ -7,5 +7,11 @@
 	"_ot_encode",
 	"_ot_decode",
 	"_ot_new_client",
-	"_ot_client_send"
+	"_ot_client_open",
+	"_ot_client_receive",
+	"_ot_client_apply",
+	"_ot_new_server",
+	"_ot_server_open",
+	"_ot_server_receive",
+	"_malloc"
 ]
