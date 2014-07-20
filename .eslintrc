@@ -7,6 +7,7 @@
         "cFuncs": true
     },
     "rules": {
+        "new-cap": 0,
         "no-console": 0,
         "no-debugger": 0,
         "no-global-strict": 0,
