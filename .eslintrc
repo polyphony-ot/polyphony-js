@@ -1,7 +1,7 @@
 {
     "globals": {
         "console": true,
-        "libot": true,
+        "polyphony": true,
         "Runtime": true,
         "Module": true,
         "cFuncs": true

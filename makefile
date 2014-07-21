@@ -1,4 +1,4 @@
-# Makefile for building libot.js.
+# Makefile for building polyphony.js.
 #
 # This project depends on the libot C library. It uses Emscripten to compile the
 # C code to JS and provides a thin wrapper for invoking the Emscripten
@@ -27,7 +27,7 @@ LIBOT=libot
 BIN=bin
 
 # Filename to use for the library.
-LIB=libot.js
+LIB=polyphony.js
 
 all: debug release test docs
 
@@ -52,46 +52,46 @@ libot-clean:
 
 # Debug targets #
 
-$(BIN)/debug/libot-emscripten.js: $(LIBOT)/bin/debug/libot.a \
+$(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
 exported-functions.json
 	mkdir -p $(BIN)/debug
 	$(CC) $(CFLAGS) -g4 \
 	-s EXPORTED_FUNCTIONS=@exported-functions.json \
 	-s RESERVED_FUNCTION_POINTERS=4 \
-	-o $(BIN)/debug/libot-emscripten.js $(LIBOT)/bin/debug/libot.a
+	-o $(BIN)/debug/polyphony-emscripten.js $(LIBOT)/bin/debug/libot.a
 
-debug: $(BIN)/debug/libot.js
+debug: $(BIN)/debug/polyphony.js
 
 # Release targets #
 
-$(BIN)/release/libot-emscripten.js: $(LIBOT)/bin/release/libot.a \
+$(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
 exported-functions.json
 	mkdir -p $(BIN)/release
 	$(CC) $(CFLAGS) -DNDEBUG -O2 \
 	-s EXPORTED_FUNCTIONS=@exported-functions.json \
 	--closure 1 \
-	-o $(BIN)/release/libot-emscripten.js $(LIBOT)/bin/release/libot.a
+	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
-release: $(BIN)/release/libot.js
+release: $(BIN)/release/polyphony.js
 
 # Test targets #
 
 .PHONY: test
-test: $(BIN)/debug/libot.js $(LIBOT)/bin/debug/test.js
+test: $(BIN)/debug/polyphony.js $(LIBOT)/bin/debug/test.js
 	eslint test/*.js
 	mocha -R spec
 
 # Misc. targets #
 
-$(BIN)/%/libot.js: $(BIN)/%/concat.js $(BIN)/%/concat-vendors.js \
-$(BIN)/%/libot-emscripten.js
+$(BIN)/%/polyphony.js: $(BIN)/%/concat.js $(BIN)/%/concat-vendors.js \
+$(BIN)/%/polyphony-emscripten.js
 	sed -e "/\/\* {{lib}} \*\// r $(BIN)/$*/concat.js" \
 	-e "/\/\* {{lib}} \*\// d" \
-	-e "/\/\* {{emscripten}} \*\// r $(BIN)/$*/libot-emscripten.js" \
+	-e "/\/\* {{emscripten}} \*\// r $(BIN)/$*/polyphony-emscripten.js" \
 	-e "/\/\* {{emscripten}} \*\// d" \
 	-e "/\/\* {{vendors}} \*\// r $(BIN)/$*/concat-vendors.js" \
 	-e "/\/\* {{vendors}} \*\// d" \
-	main.js > $(BIN)/$*/libot.js
+	main.js > $(BIN)/$*/polyphony.js
 
 $(BIN)/%/concat.js: $(SOURCES) main.js
 	eslint $(SOURCES)

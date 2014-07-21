@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<title>libot Test Client</title>
-		<script src="bin/debug/libot.js"></script>
+		<title>Polyphony Test Client</title>
+		<script src="bin/debug/polyphony.js"></script>
 		<script src="http://quilljs.com/js/quill.js"></script>
 	</head>
 	<body>
@@ -14,11 +14,11 @@
 		</div>
 
 		<script>
-			var client = new libot.Client("ws://localhost:8080");
+			var client = new polyphony.Client("ws://localhost:8080");
 			var editor = new Quill('#editor');
 			editor.addModule('toolbar', { container: '#toolbar' });
 
-			var adapter = new libot.QuillAdapter(editor, client);
+			var adapter = new polyphony.QuillAdapter(editor, client);
 		</script>
 	</body>
 </html>

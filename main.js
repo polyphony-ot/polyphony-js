@@ -3,7 +3,7 @@
 /* global Module */
 
 /**
- * @file The main entry point for libot.js. The {{lib}} and {{emscripten}}
+ * @file The main entry point for polyphony.js. The {{lib}} and {{emscripten}}
  *       comments in this file will be replaced with the sources in lib and the
  *       generated Emscripten code, respectively.
  * @author Greg Curtis <greg.r.curtis@gmail.com>
@@ -11,8 +11,8 @@
 
 /* {{vendors}} */
 
-/** @namespace libot */
-var libot = {};
+/** @namespace polyphony */
+var polyphony = {};
 
 (function() {
 
@@ -43,7 +43,7 @@ var libot = {};
         cFuncs.otNewServer = Module.cwrap("ot_new_server", "number", ["number", "number"]);
         cFuncs.otServerOpen = Module.cwrap("ot_server_open", null, ["number", "number"]);
         cFuncs.otServerReceive = Module.cwrap("ot_server_receive", null, ["number", "string"]);
-        libot.cFuncs = cFuncs;
+        polyphony.cFuncs = cFuncs;
 
         /* {{lib}} */
 
@@ -53,8 +53,8 @@ var libot = {};
 
         if (isRunningInNode()) {
             var ws = require("ws");
-            module.exports = libot;
-            var server = new libot.Server(ws);
+            module.exports = polyphony;
+            var server = new polyphony.Server(ws);
             process.on("exit", function() {
                 server.close();
             });
