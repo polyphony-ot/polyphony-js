@@ -47,17 +47,12 @@ var polyphony = {};
 
         /* {{lib}} */
 
-        function isRunningInNode() {
+        function moduleExists() {
             return (typeof module !== "undefined" && module.exports);
         }
 
-        if (isRunningInNode()) {
-            var ws = require("ws");
+        if (moduleExists()) {
             module.exports = polyphony;
-            var server = new polyphony.Server(ws);
-            process.on("exit", function() {
-                server.close();
-            });
         }
     }());
 }());
