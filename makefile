@@ -67,9 +67,8 @@ debug: $(BIN)/debug/polyphony.js
 $(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
 exported-functions.json
 	mkdir -p $(BIN)/release
-	$(CC) $(CFLAGS) -DNDEBUG -O2 \
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 \
 	-s EXPORTED_FUNCTIONS=@exported-functions.json \
-	--closure 1 \
 	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
