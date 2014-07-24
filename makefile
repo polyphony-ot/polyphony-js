@@ -81,6 +81,13 @@ test: $(BIN)/debug/polyphony.js $(LIBOT)/bin/debug/test.js
 	eslint test/*.js
 	mocha -R spec
 
+# Prepublish targets #
+
+.PHONY: prepublish
+prepublish: $(BIN)/debug/polyphony.js $(BIN)/release/polyphony.js
+	cp $(BIN)/debug/polyphony.js polyphony-debug.js
+	cp $(BIN)/release/polyphony.js polyphony-release.js
+
 # Misc. targets #
 
 $(BIN)/%/polyphony.js: $(BIN)/%/concat.js $(BIN)/%/concat-vendors.js \

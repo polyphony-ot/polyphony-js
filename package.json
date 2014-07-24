@@ -2,7 +2,7 @@
   "name": "polyphony",
   "version": "0.0.0",
   "description": "A library for performing real-time collaboration.",
-  "main": "bin/debug/polyphony.js",
+  "main": "polyphony-release.js",
   "directories": {
     "test": "test"
   },
@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "prepublish": "make clean prepublish",
     "test": "make clean test"
   },
   "keywords": [
