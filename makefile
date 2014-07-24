@@ -29,6 +29,11 @@ BIN=bin
 # Filename to use for the library.
 LIB=polyphony.js
 
+# Emscripten settings
+EMCC_SETTINGS=\
+	-s EXPORTED_FUNCTIONS=@exported-functions.json \
+	-s RESERVED_FUNCTION_POINTERS=4
+
 all: debug release test docs
 
 # libot targets #
@@ -56,8 +61,7 @@ $(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
 exported-functions.json
 	mkdir -p $(BIN)/debug
 	$(CC) $(CFLAGS) -g4 \
-	-s EXPORTED_FUNCTIONS=@exported-functions.json \
-	-s RESERVED_FUNCTION_POINTERS=4 \
+	$(EMCC_SETTINGS) \
 	-o $(BIN)/debug/polyphony-emscripten.js $(LIBOT)/bin/debug/libot.a
 
 debug: $(BIN)/debug/polyphony.js
@@ -68,7 +72,7 @@ $(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
 exported-functions.json
 	mkdir -p $(BIN)/release
 	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 \
-	-s EXPORTED_FUNCTIONS=@exported-functions.json \
+	$(EMCC_SETTINGS) \
 	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
