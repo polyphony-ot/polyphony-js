@@ -43,6 +43,8 @@ var polyphony = {};
         cFuncs.otNewServer = Module.cwrap("ot_new_server", "number", ["number", "number"]);
         cFuncs.otServerOpen = Module.cwrap("ot_server_open", null, ["number", "number"]);
         cFuncs.otServerReceive = Module.cwrap("ot_server_receive", null, ["number", "string"]);
+        cFuncs.otServerGetDoc = Module.cwrap("ot_server_get_doc", "number", ["number"]);
+        cFuncs.otDocGetComposed = Module.cwrap("ot_doc_get_composed", "number", ["number"]);
         polyphony.cFuncs = cFuncs;
 
         /* {{lib}} */

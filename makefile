@@ -21,6 +21,7 @@ TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
 LIBOT=native/libot
+NATIVE_SOURCES=$(wildcard native/*.c)
 
 # Output directory where JS files will be placed.
 BIN=bin
@@ -57,22 +58,24 @@ libot-clean:
 # Debug targets #
 
 $(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
-exported-functions.json
+$(NATIVE_SOURCES) exported-functions.json
 	mkdir -p $(BIN)/debug
 	$(CC) $(CFLAGS) -g4 \
 	$(EMCC_SETTINGS) \
-	-o $(BIN)/debug/polyphony-emscripten.js $(LIBOT)/bin/debug/libot.a
+	-o $(BIN)/debug/polyphony-emscripten.js $(NATIVE_SOURCES) \
+	$(LIBOT)/bin/debug/libot.a
 
 debug: $(BIN)/debug/polyphony.js
 
 # Release targets #
 
 $(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
-exported-functions.json
+$(NATIVE_SOURCES) exported-functions.json
 	mkdir -p $(BIN)/release
 	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 \
 	$(EMCC_SETTINGS) \
-	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
+	-o $(BIN)/release/polyphony-emscripten.js $(NATIVE_SOURCES) \
+	$(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
 

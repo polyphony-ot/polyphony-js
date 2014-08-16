@@ -13,5 +13,7 @@
 	"_ot_new_server",
 	"_ot_server_open",
 	"_ot_server_receive",
+	"ot_server_get_doc",
+	"ot_doc_get_composed",
 	"_malloc"
 ]
