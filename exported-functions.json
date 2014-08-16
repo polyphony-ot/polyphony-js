@@ -13,7 +13,9 @@
 	"_ot_new_server",
 	"_ot_server_open",
 	"_ot_server_receive",
+	"_ot_new_doc",
 	"_ot_server_get_doc",
 	"_ot_doc_get_composed",
+	"_ot_doc_set_max_size",
 	"_malloc"
 ]
