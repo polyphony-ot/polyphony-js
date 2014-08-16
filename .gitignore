@@ -1,3 +1,4 @@
 libot
 bin
 node_modules
+*.o

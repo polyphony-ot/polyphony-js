@@ -14,17 +14,23 @@
 
 CC=emcc
 CFLAGS=-std=c99 -Wall -funsigned-char -pedantic
-AR=ar
+AR=emar
 
 SOURCES=$(wildcard lib/*.js)
 TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
 LIBOT=native/libot
-NATIVE_SOURCES=$(wildcard native/*.c)
 
 # Output directory where JS files will be placed.
 BIN=bin
+
+# List of all the native C sources.
+NATIVE_SOURCES=$(wildcard native/*.c)
+
+# List of object files corresponding to the native C sources.
+DEBUG_OBJS=$(addprefix bin/debug/,$(notdir $(NATIVE_SOURCES:.c=.o)))
+RELEASE_OBJS=$(addprefix bin/release/,$(notdir $(NATIVE_SOURCES:.c=.o)))
 
 # Filename to use for the library.
 LIB=polyphony.js
@@ -57,25 +63,33 @@ libot-clean:
 
 # Debug targets #
 
-$(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
-$(NATIVE_SOURCES) exported-functions.json
+$(BIN)/debug/%.o: native/%.c
 	mkdir -p $(BIN)/debug
-	$(CC) $(CFLAGS) -g4 \
-	$(EMCC_SETTINGS) \
-	-o $(BIN)/debug/polyphony-emscripten.js $(NATIVE_SOURCES) \
-	$(LIBOT)/bin/debug/libot.a
+	$(CC) $(CFLAGS) -g4 $(EMCC_SETTINGS) -o $@ $<
+
+$(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
+$(DEBUG_OBJS) exported-functions.json
+	mkdir -p $(BIN)/debug
+	$(AR) rs $(LIBOT)/bin/debug/libot.a $(BIN)/debug/*.o
+	rm $(BIN)/debug/*.o
+	$(CC) $(CFLAGS) -g4 $(EMCC_SETTINGS) \
+	-o $(BIN)/debug/polyphony-emscripten.js $(LIBOT)/bin/debug/libot.a
 
 debug: $(BIN)/debug/polyphony.js
 
 # Release targets #
 
-$(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
-$(NATIVE_SOURCES) exported-functions.json
+$(BIN)/release/%.o: native/%.c
 	mkdir -p $(BIN)/release
-	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 \
-	$(EMCC_SETTINGS) \
-	-o $(BIN)/release/polyphony-emscripten.js $(NATIVE_SOURCES) \
-	$(LIBOT)/bin/release/libot.a
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 $(EMCC_SETTINGS) -o $@ $<
+
+$(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
+$(RELEASE_OBJS) exported-functions.json
+	mkdir -p $(BIN)/release
+	$(AR) rs $(LIBOT)/bin/release/libot.a $(BIN)/release/*.o
+	rm $(BIN)/release/*.o
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 $(EMCC_SETTINGS) \
+	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
 
