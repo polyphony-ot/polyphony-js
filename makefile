@@ -21,7 +21,7 @@ VENDORS=
 TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
-LIBOT=libot
+LIBOT=native/libot
 
 # Output directory where JS files will be placed.
 BIN=bin
