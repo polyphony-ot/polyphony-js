@@ -17,7 +17,6 @@ CFLAGS=-std=c99 -Wall -funsigned-char -pedantic
 AR=ar
 
 SOURCES=$(wildcard lib/*.js)
-VENDORS=
 TESTS=$(wildcard test/*.js)
 
 # The path to the libot source.
@@ -93,26 +92,16 @@ prepublish: $(BIN)/debug/polyphony.js $(BIN)/release/polyphony.js
 
 # Misc. targets #
 
-$(BIN)/%/polyphony.js: $(BIN)/%/concat.js $(BIN)/%/concat-vendors.js \
-$(BIN)/%/polyphony-emscripten.js
+$(BIN)/%/polyphony.js: $(BIN)/%/concat.js $(BIN)/%/polyphony-emscripten.js
 	sed -e "/\/\* {{lib}} \*\// r $(BIN)/$*/concat.js" \
 	-e "/\/\* {{lib}} \*\// d" \
 	-e "/\/\* {{emscripten}} \*\// r $(BIN)/$*/polyphony-emscripten.js" \
 	-e "/\/\* {{emscripten}} \*\// d" \
-	-e "/\/\* {{vendors}} \*\// r $(BIN)/$*/concat-vendors.js" \
-	-e "/\/\* {{vendors}} \*\// d" \
 	main.js > $(BIN)/$*/polyphony.js
 
 $(BIN)/%/concat.js: $(SOURCES) main.js
 	eslint $(SOURCES)
 	cat $(SOURCES) > $(BIN)/$*/concat.js
-
-$(BIN)/%/concat-vendors.js: $(VENDORS)
-ifdef VENDORS
-	cat $(VENDORS) > $(BIN)/$*/concat-vendors.js
-else
-	touch $(BIN)/$*/concat-vendors.js
-endif
 
 $(BIN)/docs/index.html: $(SOURCES)
 	jsdoc --pedantic --destination $(BIN)/docs lib/*.js main.js
