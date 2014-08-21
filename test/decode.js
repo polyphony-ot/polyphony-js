@@ -7,7 +7,7 @@ var assert = require("assert");
 
 describe("Decode", function() {
     it("shouldn't throw an exception for a valid JSON operation", function() {
-        var op = polyphony.Decode('{ "clientId": 0, "parent": "0", "components": [ { "type": "insert", "text": "abc" } ] }');
+        var op = polyphony.Decode('{ "clientId": 0, "parent": "00", "hash": "00", "components": [ { "type": "insert", "text": "abc" } ] }');
         assert(op);
     });
 
