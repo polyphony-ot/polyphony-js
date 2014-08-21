@@ -29,7 +29,7 @@ var polyphony = {};
         "use strict";
 
         var cFuncs = {};
-        cFuncs.otNewOp = Module.cwrap("ot_new_op", "number", ["number", "string"]);
+        cFuncs.otNewOp = Module.cwrap("ot_new_op", "number", []);
         cFuncs.otSkip = Module.cwrap("ot_skip", null, ["number", "number"]);
         cFuncs.otInsert = Module.cwrap("ot_insert", null, ["number", "string"]);
         cFuncs.otDelete = Module.cwrap("ot_delete", null, ["number", "number"]);
