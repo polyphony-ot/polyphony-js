@@ -17,5 +17,6 @@
 	"_ot_server_get_doc",
 	"_ot_doc_get_composed",
 	"_ot_doc_set_max_size",
+	"_ot_client_set_id",
 	"_malloc"
 ]

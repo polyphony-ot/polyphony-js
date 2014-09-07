@@ -36,7 +36,7 @@ var polyphony = {};
         cFuncs.otEncode = Module.cwrap("ot_encode", "string", ["number"]);
         cFuncs.otDecode = Module.cwrap("ot_decode", "number", ["number", "string"]);
         cFuncs.otSnapshot = Module.cwrap("ot_snapshot", "string", ["number"]);
-        cFuncs.otNewClient = Module.cwrap("ot_new_client", "number", ["number", "number", "number"]);
+        cFuncs.otNewClient = Module.cwrap("ot_new_client", "number", ["number", "number"]);
         cFuncs.otClientOpen = Module.cwrap("ot_client_open", null, ["number", "number"]);
         cFuncs.otClientReceive = Module.cwrap("ot_client_receive", null, ["number", "string"]);
         cFuncs.otClientApply = Module.cwrap("ot_client_apply", "number", ["number", "number"]);
@@ -47,6 +47,7 @@ var polyphony = {};
         cFuncs.otServerGetDoc = Module.cwrap("ot_server_get_doc", "number", ["number"]);
         cFuncs.otDocGetComposed = Module.cwrap("ot_doc_get_composed", "number", ["number"]);
         cFuncs.otDocSetMaxSize = Module.cwrap("ot_doc_set_max_size", null, ["number","number"]);
+        cFuncs.otClientSetId = Module.cwrap("ot_client_set_id", null, ["number", "number"]);
         polyphony.cFuncs = cFuncs;
 
         /* {{lib}} */
