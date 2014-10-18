@@ -6,9 +6,7 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "ws": "^0.4.31"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "prepublish": "make clean prepublish",
