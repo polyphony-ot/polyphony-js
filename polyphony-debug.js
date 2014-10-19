@@ -26712,7 +26712,7 @@ run();
 
 
 //# sourceMappingURL=polyphony-emscripten.js.map
-    (function() {
+    ;(function() {
         "use strict";
 
         var cFuncs = {};
