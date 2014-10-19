@@ -87,14 +87,14 @@ debug: $(BIN)/debug/polyphony.js
 
 $(BIN)/release/%.o: native/%.c
 	mkdir -p $(BIN)/release
-	$(CC) $(CFLAGS) -DNDEBUG -O2 -g0 $(EMCC_SETTINGS) -o $@ $<
+	$(CC) $(CFLAGS) -DNDEBUG -O3 -g0 $(EMCC_SETTINGS) -o $@ $<
 
 $(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
 $(RELEASE_OBJS)
 	mkdir -p $(BIN)/release
 	$(AR) rs $(LIBOT)/bin/release/libot.a $(BIN)/release/*.o
 	rm $(BIN)/release/*.o
-	$(CC) $(CFLAGS) -DNDEBUG -O2 -g0 $(EMCC_SETTINGS) \
+	$(CC) $(CFLAGS) -DNDEBUG -O3 -g0 $(EMCC_SETTINGS) \
 	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
