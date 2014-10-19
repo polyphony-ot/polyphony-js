@@ -1,0 +1,6 @@
+--tool=memcheck
+--track-origins=yes
+--leak-check=full
+--malloc-fill=0xAA
+--free-fill=0x55
+-q

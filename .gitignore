@@ -1,0 +1,6 @@
+xcuserdata/
+bin
+*.o
+*.gcda
+*.gcno
+*.html
