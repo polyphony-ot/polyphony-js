@@ -25,7 +25,7 @@ var polyphony = {};
      */
     /* {{emscripten}} */
 
-    (function() {
+    ;(function() {
         "use strict";
 
         var cFuncs = {};
