@@ -37,7 +37,13 @@ LIB=polyphony.js
 
 # Emscripten settings
 EMCC_SETTINGS=\
-	-s EXPORTED_FUNCTIONS=@exported-functions.json \
+	-s EXPORTED_FUNCTIONS='["_ot_new_op", "_ot_skip", "_ot_insert",            \
+		"_ot_delete", "_ot_snapshot", "_ot_encode", "_ot_decode",              \
+		"_ot_new_client", "_ot_client_open", "_ot_client_receive",             \
+		"_ot_client_apply", "_ot_new_server", "_ot_server_open",               \
+		"_ot_server_receive", "_ot_new_doc", "_ot_server_get_doc",             \
+		"_ot_doc_get_composed", "_ot_doc_set_max_size", "_ot_client_set_id",   \
+		"_malloc"]'                                                            \
 	-s RESERVED_FUNCTION_POINTERS=4
 
 all: debug release test docs
@@ -68,7 +74,7 @@ $(BIN)/debug/%.o: native/%.c
 	$(CC) $(CFLAGS) -g4 $(EMCC_SETTINGS) -o $@ $<
 
 $(BIN)/debug/polyphony-emscripten.js: $(LIBOT)/bin/debug/libot.a \
-$(DEBUG_OBJS) exported-functions.json
+$(DEBUG_OBJS)
 	mkdir -p $(BIN)/debug
 	$(AR) rs $(LIBOT)/bin/debug/libot.a $(BIN)/debug/*.o
 	rm $(BIN)/debug/*.o
@@ -81,14 +87,14 @@ debug: $(BIN)/debug/polyphony.js
 
 $(BIN)/release/%.o: native/%.c
 	mkdir -p $(BIN)/release
-	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 $(EMCC_SETTINGS) -o $@ $<
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -g0 $(EMCC_SETTINGS) -o $@ $<
 
 $(BIN)/release/polyphony-emscripten.js: $(LIBOT)/bin/release/libot.a \
-$(RELEASE_OBJS) exported-functions.json
+$(RELEASE_OBJS)
 	mkdir -p $(BIN)/release
 	$(AR) rs $(LIBOT)/bin/release/libot.a $(BIN)/release/*.o
 	rm $(BIN)/release/*.o
-	$(CC) $(CFLAGS) -DNDEBUG -O2 -g4 $(EMCC_SETTINGS) \
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -g0 $(EMCC_SETTINGS) \
 	-o $(BIN)/release/polyphony-emscripten.js $(LIBOT)/bin/release/libot.a
 
 release: $(BIN)/release/polyphony.js
