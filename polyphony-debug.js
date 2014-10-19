@@ -12071,16 +12071,16 @@ function _ot_free_comp($comp) {
   $5 = HEAP32[$4>>2]|0; //@line 46 "ot.c"
   _free($5); //@line 46 "ot.c"
   STACKTOP = sp;return; //@line 56 "ot.c"
+ } else if ((($2|0) == 5)) {
+  $9 = $0; //@line 52 "ot.c"
+  $10 = (($9) + 4|0); //@line 52 "ot.c"
+  _ot_free_fmtbound($10); //@line 52 "ot.c"
  } else if ((($2|0) == 3)) {
   $6 = $0; //@line 49 "ot.c"
   $7 = (($6) + 4|0); //@line 49 "ot.c"
   $8 = HEAP32[$7>>2]|0; //@line 49 "ot.c"
   _free($8); //@line 49 "ot.c"
   STACKTOP = sp;return; //@line 56 "ot.c"
- } else if ((($2|0) == 5)) {
-  $9 = $0; //@line 52 "ot.c"
-  $10 = (($9) + 4|0); //@line 52 "ot.c"
-  _ot_free_fmtbound($10); //@line 52 "ot.c"
  }
  STACKTOP = sp;return; //@line 56 "ot.c"
 }
@@ -12195,17 +12195,6 @@ function _ot_dup_op($op) {
   $18 = $comp; //@line 69 "ot.c"
   $19 = HEAP32[$18>>2]|0; //@line 69 "ot.c"
   switch ($19|0) {
-  case 1:  {
-   $24 = $dup; //@line 74 "ot.c"
-   $25 = $comp; //@line 74 "ot.c"
-   $26 = (($25) + 4|0); //@line 74 "ot.c"
-   $27 = HEAP32[$26>>2]|0; //@line 74 "ot.c"
-   _ot_insert($24,$27); //@line 74 "ot.c"
-   break;
-  }
-  case 5:  {
-   break;
-  }
   case 2:  {
    $28 = $dup; //@line 77 "ot.c"
    $29 = $comp; //@line 77 "ot.c"
@@ -12214,12 +12203,17 @@ function _ot_dup_op($op) {
    _ot_delete($28,$31); //@line 77 "ot.c"
    break;
   }
-  case 3:  {
-   $32 = $dup; //@line 80 "ot.c"
-   $33 = $comp; //@line 80 "ot.c"
-   $34 = (($33) + 4|0); //@line 80 "ot.c"
-   $35 = HEAP32[$34>>2]|0; //@line 80 "ot.c"
-   _ot_open_element($32,$35); //@line 80 "ot.c"
+  case 4:  {
+   $36 = $dup; //@line 83 "ot.c"
+   _ot_close_element($36); //@line 83 "ot.c"
+   break;
+  }
+  case 1:  {
+   $24 = $dup; //@line 74 "ot.c"
+   $25 = $comp; //@line 74 "ot.c"
+   $26 = (($25) + 4|0); //@line 74 "ot.c"
+   $27 = HEAP32[$26>>2]|0; //@line 74 "ot.c"
+   _ot_insert($24,$27); //@line 74 "ot.c"
    break;
   }
   case 0:  {
@@ -12230,9 +12224,15 @@ function _ot_dup_op($op) {
    _ot_skip($20,$23); //@line 71 "ot.c"
    break;
   }
-  case 4:  {
-   $36 = $dup; //@line 83 "ot.c"
-   _ot_close_element($36); //@line 83 "ot.c"
+  case 3:  {
+   $32 = $dup; //@line 80 "ot.c"
+   $33 = $comp; //@line 80 "ot.c"
+   $34 = (($33) + 4|0); //@line 80 "ot.c"
+   $35 = HEAP32[$34>>2]|0; //@line 80 "ot.c"
+   _ot_open_element($32,$35); //@line 80 "ot.c"
+   break;
+  }
+  case 5:  {
    break;
   }
   default: {
@@ -13076,8 +13076,8 @@ function _append_op108($server,$op) {
  sp = STACKTOP;
  STACKTOP = STACKTOP + 80|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
  $vararg_buffer5 = sp + 16|0;
- $vararg_buffer1 = sp;
- $vararg_buffer = sp + 8|0;
+ $vararg_buffer1 = sp + 8|0;
+ $vararg_buffer = sp;
  $2 = sp + 28|0;
  $1 = $server;
  HEAP32[$2>>2] = $op;
@@ -13250,10 +13250,10 @@ function _xform($doc,$op) {
  var $vararg_ptr9 = 0, label = 0, sp = 0;
  sp = STACKTOP;
  STACKTOP = STACKTOP + 80|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $vararg_buffer11 = sp + 8|0;
+ $vararg_buffer11 = sp + 32|0;
  $vararg_buffer6 = sp + 16|0;
- $vararg_buffer2 = sp;
- $vararg_buffer = sp + 32|0;
+ $vararg_buffer2 = sp + 8|0;
+ $vararg_buffer = sp;
  $p = sp + 64|0;
  $1 = $doc;
  $2 = $op;
@@ -14788,57 +14788,57 @@ function _ot_xform($agg$result,$op1,$op2) {
  var $op2_next = 0, $op2_prime = 0, $op2_skip = 0, $op2_skip$byval_copy = 0, $op2_skip10 = 0, $op2_skip10$byval_copy = 0, $p = 0, $p1 = 0, $p11 = 0, $p13 = 0, $p15 = 0, $p2 = 0, $p4 = 0, $p5 = 0, $p7 = 0, $p8 = 0, $p9 = 0, $xform = 0, $xform$byval_copy = 0, $xform$byval_copy1 = 0;
  var $xform$byval_copy10 = 0, $xform$byval_copy11 = 0, $xform$byval_copy12 = 0, $xform$byval_copy2 = 0, $xform$byval_copy3 = 0, $xform$byval_copy5 = 0, $xform$byval_copy6 = 0, $xform$byval_copy8 = 0, dest = 0, label = 0, sp = 0, src = 0, stop = 0;
  sp = STACKTOP;
- STACKTOP = STACKTOP + 416|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $op2_delete14$byval_copy = sp + 184|0;
- $op1_delete$byval_copy13 = sp + 144|0;
- $xform$byval_copy12 = sp + 328|0;
- $op2_insert12$byval_copy = sp;
- $xform$byval_copy11 = sp + 152|0;
- $op2_skip10$byval_copy = sp + 168|0;
- $op1_delete$byval_copy = sp + 380|0;
- $xform$byval_copy10 = sp + 320|0;
- $op1_insert6$byval_copy9 = sp + 32|0;
- $xform$byval_copy8 = sp + 40|0;
- $op1_insert6$byval_copy7 = sp + 48|0;
- $xform$byval_copy6 = sp + 56|0;
- $op1_insert6$byval_copy = sp + 64|0;
- $xform$byval_copy5 = sp + 72|0;
- $op2_delete$byval_copy = sp + 80|0;
- $op1_skip$byval_copy4 = sp + 312|0;
- $xform$byval_copy3 = sp + 88|0;
- $op2_insert3$byval_copy = sp + 96|0;
- $xform$byval_copy2 = sp + 104|0;
- $op2_skip$byval_copy = sp + 112|0;
- $op1_skip$byval_copy = sp + 116|0;
- $xform$byval_copy1 = sp + 120|0;
- $op1_insert$byval_copy = sp + 128|0;
- $xform$byval_copy = sp + 136|0;
- $op2_insert$byval_copy = sp + 352|0;
- $xform = sp + 176|0;
- $op1_iter = sp + 192|0;
- $op2_iter = sp + 208|0;
- $op2_insert = sp + 244|0;
- $p = sp + 248|0;
- $op1_insert = sp + 256|0;
- $p1 = sp + 264|0;
- $op1_skip = sp + 272|0;
- $op2_skip = sp + 276|0;
- $p2 = sp + 280|0;
- $op2_insert3 = sp + 288|0;
- $p4 = sp + 296|0;
- $op2_delete = sp + 304|0;
- $p5 = sp + 16|0;
- $op1_insert6 = sp + 336|0;
- $p7 = sp + 8|0;
- $p8 = sp + 344|0;
- $p9 = sp + 360|0;
- $op1_delete = sp + 160|0;
- $op2_skip10 = sp + 372|0;
- $p11 = sp + 24|0;
- $op2_insert12 = sp + 164|0;
- $p13 = sp + 392|0;
- $op2_delete14 = sp + 232|0;
- $p15 = sp + 224|0;
+ STACKTOP = STACKTOP + 400|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $op2_delete14$byval_copy = sp + 200|0;
+ $op1_delete$byval_copy13 = sp + 160|0;
+ $xform$byval_copy12 = sp + 8|0;
+ $op2_insert12$byval_copy = sp + 4|0;
+ $xform$byval_copy11 = sp + 168|0;
+ $op2_skip10$byval_copy = sp + 184|0;
+ $op1_delete$byval_copy = sp + 364|0;
+ $xform$byval_copy10 = sp + 40|0;
+ $op1_insert6$byval_copy9 = sp + 48|0;
+ $xform$byval_copy8 = sp + 56|0;
+ $op1_insert6$byval_copy7 = sp + 64|0;
+ $xform$byval_copy6 = sp + 72|0;
+ $op1_insert6$byval_copy = sp + 80|0;
+ $xform$byval_copy5 = sp + 88|0;
+ $op2_delete$byval_copy = sp + 96|0;
+ $op1_skip$byval_copy4 = sp + 100|0;
+ $xform$byval_copy3 = sp + 104|0;
+ $op2_insert3$byval_copy = sp + 112|0;
+ $xform$byval_copy2 = sp + 120|0;
+ $op2_skip$byval_copy = sp + 128|0;
+ $op1_skip$byval_copy = sp + 132|0;
+ $xform$byval_copy1 = sp + 136|0;
+ $op1_insert$byval_copy = sp + 144|0;
+ $xform$byval_copy = sp + 152|0;
+ $op2_insert$byval_copy = sp + 336|0;
+ $xform = sp + 192|0;
+ $op1_iter = sp + 208|0;
+ $op2_iter = sp + 224|0;
+ $op2_insert = sp + 260|0;
+ $p = sp + 264|0;
+ $op1_insert = sp + 272|0;
+ $p1 = sp + 280|0;
+ $op1_skip = sp + 288|0;
+ $op2_skip = sp + 292|0;
+ $p2 = sp + 296|0;
+ $op2_insert3 = sp + 304|0;
+ $p4 = sp + 312|0;
+ $op2_delete = sp + 320|0;
+ $p5 = sp + 24|0;
+ $op1_insert6 = sp;
+ $p7 = sp + 16|0;
+ $p8 = sp + 328|0;
+ $p9 = sp + 344|0;
+ $op1_delete = sp + 176|0;
+ $op2_skip10 = sp + 356|0;
+ $p11 = sp + 32|0;
+ $op2_insert12 = sp + 180|0;
+ $p13 = sp + 376|0;
+ $op2_delete14 = sp + 248|0;
+ $p15 = sp + 240|0;
  $0 = $op1;
  $1 = $op2;
  $2 = (_ot_new_op()|0); //@line 130 "xform.c"
@@ -20395,10 +20395,7 @@ function _frexp($x,$e) {
  $2 = (_bitshift64Lshr(($0|0),($1|0),52)|0);
  $3 = tempRet0;
  $4 = $2 & 2047;
- if ((($4|0) == 2047)) {
-  $$0 = $x;
-  STACKTOP = sp;return (+$$0);
- } else if ((($4|0) == 0)) {
+ if ((($4|0) == 0)) {
   $5 = $x != 0.0;
   if ($5) {
    $6 = $x * 18446744073709551616.0;
@@ -20411,6 +20408,9 @@ function _frexp($x,$e) {
   }
   HEAP32[$e>>2] = $storemerge;
   $$0 = $$01;
+  STACKTOP = sp;return (+$$0);
+ } else if ((($4|0) == 2047)) {
+  $$0 = $x;
   STACKTOP = sp;return (+$$0);
  } else {
   $10 = (($4) + -1022)|0;
@@ -21215,22 +21215,6 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
     } else {
      do {
       switch ($142|0) {
-      case 12:  {
-       $arglist_current14 = HEAP32[$ap>>2]|0;
-       $165 = $arglist_current14;
-       $166 = $165;
-       $167 = HEAP32[$166>>2]|0;
-       $168 = (($165) + 4)|0;
-       $169 = $168;
-       $170 = HEAP32[$169>>2]|0;
-       $arglist_next15 = (($arglist_current14) + 8|0);
-       HEAP32[$ap>>2] = $arglist_next15;
-       $171 = $167;
-       $1051 = $171;$1052 = $170;
-       label = 64;
-       break L65;
-       break;
-      }
       case 18:  {
        $arglist_current32 = HEAP32[$ap>>2]|0;
        HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current32>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current32+4>>2];$194 = +HEAPF64[tempDoublePtr>>3];
@@ -21244,19 +21228,12 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
        break L65;
        break;
       }
-      case 15:  {
-       $arglist_current23 = HEAP32[$ap>>2]|0;
-       $181 = HEAP32[$arglist_current23>>2]|0;
-       $arglist_next24 = (($arglist_current23) + 4|0);
-       HEAP32[$ap>>2] = $arglist_next24;
-       $182 = $181&255;
-       $183 = $182 << 24 >> 24;
-       $184 = ($183|0)<(0);
-       $185 = $184 << 31 >> 31;
-       $sext = $181 << 24;
-       $186 = $sext >> 24;
-       $187 = $186;
-       $1051 = $187;$1052 = $185;
+      case 9:  {
+       $arglist_current5 = HEAP32[$ap>>2]|0;
+       $158 = HEAP32[$arglist_current5>>2]|0;
+       $arglist_next6 = (($arglist_current5) + 4|0);
+       HEAP32[$ap>>2] = $arglist_next6;
+       $1051 = $158;$1052 = $1045;
        label = 64;
        break L65;
        break;
@@ -21269,27 +21246,6 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
        $$mask1$i29 = $179 & 65535;
        $180 = $$mask1$i29;
        $1051 = $180;$1052 = 0;
-       label = 64;
-       break L65;
-       break;
-      }
-      case 11:  {
-       $arglist_current11 = HEAP32[$ap>>2]|0;
-       $163 = HEAP32[$arglist_current11>>2]|0;
-       $arglist_next12 = (($arglist_current11) + 4|0);
-       HEAP32[$ap>>2] = $arglist_next12;
-       $164 = $163;
-       $1051 = $164;$1052 = 0;
-       label = 64;
-       break L65;
-       break;
-      }
-      case 9:  {
-       $arglist_current5 = HEAP32[$ap>>2]|0;
-       $158 = HEAP32[$arglist_current5>>2]|0;
-       $arglist_next6 = (($arglist_current5) + 4|0);
-       HEAP32[$ap>>2] = $arglist_next6;
-       $1051 = $158;$1052 = $1045;
        label = 64;
        break L65;
        break;
@@ -21307,6 +21263,46 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
        $177 = $sext84 >> 16;
        $178 = $177;
        $1051 = $178;$1052 = $176;
+       label = 64;
+       break L65;
+       break;
+      }
+      case 11:  {
+       $arglist_current11 = HEAP32[$ap>>2]|0;
+       $163 = HEAP32[$arglist_current11>>2]|0;
+       $arglist_next12 = (($arglist_current11) + 4|0);
+       HEAP32[$ap>>2] = $arglist_next12;
+       $164 = $163;
+       $1051 = $164;$1052 = 0;
+       label = 64;
+       break L65;
+       break;
+      }
+      case 17:  {
+       $arglist_current29 = HEAP32[$ap>>2]|0;
+       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current29>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current29+4>>2];$190 = +HEAPF64[tempDoublePtr>>3];
+       $arglist_next30 = (($arglist_current29) + 8|0);
+       HEAP32[$ap>>2] = $arglist_next30;
+       HEAPF64[tempDoublePtr>>3] = $190;$191 = HEAP32[tempDoublePtr>>2]|0;
+       $192 = HEAP32[tempDoublePtr+4>>2]|0;
+       $193 = $191;
+       $1051 = $193;$1052 = $192;
+       label = 64;
+       break L65;
+       break;
+      }
+      case 12:  {
+       $arglist_current14 = HEAP32[$ap>>2]|0;
+       $165 = $arglist_current14;
+       $166 = $165;
+       $167 = HEAP32[$166>>2]|0;
+       $168 = (($165) + 4)|0;
+       $169 = $168;
+       $170 = HEAP32[$169>>2]|0;
+       $arglist_next15 = (($arglist_current14) + 8|0);
+       HEAP32[$ap>>2] = $arglist_next15;
+       $171 = $167;
+       $1051 = $171;$1052 = $170;
        label = 64;
        break L65;
        break;
@@ -21336,15 +21332,19 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
        break L65;
        break;
       }
-      case 17:  {
-       $arglist_current29 = HEAP32[$ap>>2]|0;
-       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current29>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current29+4>>2];$190 = +HEAPF64[tempDoublePtr>>3];
-       $arglist_next30 = (($arglist_current29) + 8|0);
-       HEAP32[$ap>>2] = $arglist_next30;
-       HEAPF64[tempDoublePtr>>3] = $190;$191 = HEAP32[tempDoublePtr>>2]|0;
-       $192 = HEAP32[tempDoublePtr+4>>2]|0;
-       $193 = $191;
-       $1051 = $193;$1052 = $192;
+      case 15:  {
+       $arglist_current23 = HEAP32[$ap>>2]|0;
+       $181 = HEAP32[$arglist_current23>>2]|0;
+       $arglist_next24 = (($arglist_current23) + 4|0);
+       HEAP32[$ap>>2] = $arglist_next24;
+       $182 = $181&255;
+       $183 = $182 << 24 >> 24;
+       $184 = ($183|0)<(0);
+       $185 = $184 << 31 >> 31;
+       $sext = $181 << 24;
+       $186 = $sext >> 24;
+       $187 = $186;
+       $1051 = $187;$1052 = $185;
        label = 64;
        break L65;
        break;
@@ -21391,192 +21391,6 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
   $fl$1$ = $205 ? $fl$1 : $206;
   L92: do {
    switch ($t$0|0) {
-   case 110:  {
-    switch ($st$0|0) {
-    case 7:  {
-     $216 = ($cnt$1|0)<(0);
-     $217 = $216 << 31 >> 31;
-     $218 = $207;
-     $219 = $218;
-     HEAP32[$219>>2] = $cnt$1;
-     $220 = (($218) + 4)|0;
-     $221 = $220;
-     HEAP32[$221>>2] = $217;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 0:  {
-     HEAP32[$207>>2] = $cnt$1;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 1:  {
-     HEAP32[$207>>2] = $cnt$1;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 3:  {
-     $214 = $cnt$1&65535;
-     HEAP16[$207>>1] = $214;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 4:  {
-     $215 = $cnt$1&255;
-     HEAP8[$207>>0] = $215;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 6:  {
-     HEAP32[$207>>2] = $cnt$1;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    case 2:  {
-     $208 = ($cnt$1|0)<(0);
-     $209 = $208 << 31 >> 31;
-     $210 = $207;
-     $211 = $210;
-     HEAP32[$211>>2] = $cnt$1;
-     $212 = (($210) + 4)|0;
-     $213 = $212;
-     HEAP32[$213>>2] = $209;
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-     break;
-    }
-    default: {
-     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
-     continue L1;
-    }
-    }
-    break;
-   }
-   case 112:  {
-    $222 = ($p$0>>>0)>(8);
-    $223 = $222 ? $p$0 : 8;
-    $224 = $fl$1$ | 8;
-    $fl$3 = $224;$p$1 = $223;$t$1 = 120;
-    label = 77;
-    break;
-   }
-   case 88: case 120:  {
-    $fl$3 = $fl$1$;$p$1 = $p$0;$t$1 = $t$0;
-    label = 77;
-    break;
-   }
-   case 111:  {
-    $249 = $207;
-    $250 = ($249|0)==(0);
-    $251 = ($229|0)==(0);
-    $252 = $250 & $251;
-    if ($252) {
-     $$0$lcssa$i43 = $2;
-    } else {
-     $$03$i40 = $2;$254 = $249;$258 = $229;
-     while(1) {
-      $253 = $254 & 7;
-      $255 = $253 | 48;
-      $256 = $255&255;
-      $257 = (($$03$i40) + -1|0);
-      HEAP8[$257>>0] = $256;
-      $259 = (_bitshift64Lshr(($254|0),($258|0),3)|0);
-      $260 = tempRet0;
-      $261 = ($259|0)==(0);
-      $262 = ($260|0)==(0);
-      $263 = $261 & $262;
-      if ($263) {
-       $$0$lcssa$i43 = $257;
-       break;
-      } else {
-       $$03$i40 = $257;$254 = $259;$258 = $260;
-      }
-     }
-    }
-    $264 = $fl$1$ & 8;
-    $265 = ($264|0)==(0);
-    if ($265) {
-     $308 = $207;$311 = $229;$a$0 = $$0$lcssa$i43;$fl$4 = $fl$1$;$p$2 = $p$0;$pl$1 = 0;$prefix$1 = 4256;
-     label = 94;
-    } else {
-     $$13 = $252 ? 4256 : ((4256 + 5|0));
-     $266 = $252&1;
-     $$14 = $266 ^ 1;
-     $308 = $207;$311 = $229;$a$0 = $$0$lcssa$i43;$fl$4 = $fl$1$;$p$2 = $p$0;$pl$1 = $$14;$prefix$1 = $$13;
-     label = 94;
-    }
-    break;
-   }
-   case 105: case 100:  {
-    $267 = $207;
-    $268 = ($229|0)<(0);
-    if ($268) {
-     $269 = (_i64Subtract(0,0,($267|0),($229|0))|0);
-     $270 = tempRet0;
-     $271 = $269;
-     $277 = $271;$279 = $270;$pl$0 = 1;$prefix$0 = 4256;
-     label = 89;
-     break L92;
-    }
-    $272 = $fl$1$ & 2048;
-    $273 = ($272|0)==(0);
-    if ($273) {
-     $274 = $fl$1$ & 1;
-     $275 = ($274|0)==(0);
-     $$15 = $275 ? 4256 : ((4256 + 2|0));
-     $277 = $207;$279 = $229;$pl$0 = $274;$prefix$0 = $$15;
-     label = 89;
-    } else {
-     $277 = $207;$279 = $229;$pl$0 = 1;$prefix$0 = ((4256 + 1|0));
-     label = 89;
-    }
-    break;
-   }
-   case 117:  {
-    $277 = $207;$279 = $229;$pl$0 = 0;$prefix$0 = 4256;
-    label = 89;
-    break;
-   }
-   case 109:  {
-    $321 = (___errno_location()|0);
-    $322 = HEAP32[$321>>2]|0;
-    $323 = (_strerror(($322|0))|0);
-    $a$1 = $323;
-    label = 99;
-    break;
-   }
-   case 115:  {
-    $324 = ($207|0)==(0|0);
-    $$17 = $324 ? 4272 : $207;
-    $a$1 = $$17;
-    label = 99;
-    break;
-   }
-   case 67:  {
-    $331 = $207;
-    HEAP32[$wc>>2] = $331;
-    HEAP32[$5>>2] = 0;
-    $1055 = $wc;$1056 = $wc;$p$4296 = -1;
-    label = 104;
-    break;
-   }
-   case 83:  {
-    $332 = ($p$0|0)==(0);
-    if ($332) {
-     $1057 = $207;$1058 = $207;$i$0166 = 0;
-     label = 110;
-    } else {
-     $1055 = $207;$1056 = $207;$p$4296 = $p$0;
-     label = 104;
-    }
-    break;
-   }
    case 65: case 71: case 70: case 69: case 97: case 103: case 102: case 101:  {
     $368 = $207;
     HEAP32[tempDoublePtr>>2] = $368;HEAP32[tempDoublePtr+4>>2] = $229;$369 = +HEAPF64[tempDoublePtr>>3];
@@ -22183,7 +21997,7 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
      $$pr146$i = $$pr$i;$a$1$lcssa$i = $$31$i;$z$1$lcssa$i = $584;
     }
     $613 = ($$pr146$i|0)<(0);
-    L253: do {
+    L228: do {
      if ($613) {
       $614 = (($$p$i) + 25)|0;
       $615 = (($614|0) / 9)&-1;
@@ -22252,7 +22066,7 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
          $621 = $638;$a$3249$us$i = $$a$3$us323$i;$z$3248$us$i = $$z$4$us$i;
         } else {
          $a$3$lcssa$i = $$a$3$us323$i;$z$3$lcssa$i = $$z$4$us$i;
-         break L253;
+         break L228;
         }
        }
       } else {
@@ -23124,6 +22938,192 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
     $1053 = $229;$1054 = $207;$a$2 = $4;$fl$6 = $206;$p$5 = 1;$pl$2 = 0;$prefix$2 = 4256;$z$2 = $2;
     break;
    }
+   case 109:  {
+    $321 = (___errno_location()|0);
+    $322 = HEAP32[$321>>2]|0;
+    $323 = (_strerror(($322|0))|0);
+    $a$1 = $323;
+    label = 99;
+    break;
+   }
+   case 115:  {
+    $324 = ($207|0)==(0|0);
+    $$17 = $324 ? 4272 : $207;
+    $a$1 = $$17;
+    label = 99;
+    break;
+   }
+   case 67:  {
+    $331 = $207;
+    HEAP32[$wc>>2] = $331;
+    HEAP32[$5>>2] = 0;
+    $1055 = $wc;$1056 = $wc;$p$4296 = -1;
+    label = 104;
+    break;
+   }
+   case 83:  {
+    $332 = ($p$0|0)==(0);
+    if ($332) {
+     $1057 = $207;$1058 = $207;$i$0166 = 0;
+     label = 110;
+    } else {
+     $1055 = $207;$1056 = $207;$p$4296 = $p$0;
+     label = 104;
+    }
+    break;
+   }
+   case 88: case 120:  {
+    $fl$3 = $fl$1$;$p$1 = $p$0;$t$1 = $t$0;
+    label = 77;
+    break;
+   }
+   case 105: case 100:  {
+    $267 = $207;
+    $268 = ($229|0)<(0);
+    if ($268) {
+     $269 = (_i64Subtract(0,0,($267|0),($229|0))|0);
+     $270 = tempRet0;
+     $271 = $269;
+     $277 = $271;$279 = $270;$pl$0 = 1;$prefix$0 = 4256;
+     label = 89;
+     break L92;
+    }
+    $272 = $fl$1$ & 2048;
+    $273 = ($272|0)==(0);
+    if ($273) {
+     $274 = $fl$1$ & 1;
+     $275 = ($274|0)==(0);
+     $$15 = $275 ? 4256 : ((4256 + 2|0));
+     $277 = $207;$279 = $229;$pl$0 = $274;$prefix$0 = $$15;
+     label = 89;
+    } else {
+     $277 = $207;$279 = $229;$pl$0 = 1;$prefix$0 = ((4256 + 1|0));
+     label = 89;
+    }
+    break;
+   }
+   case 117:  {
+    $277 = $207;$279 = $229;$pl$0 = 0;$prefix$0 = 4256;
+    label = 89;
+    break;
+   }
+   case 110:  {
+    switch ($st$0|0) {
+    case 3:  {
+     $214 = $cnt$1&65535;
+     HEAP16[$207>>1] = $214;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 4:  {
+     $215 = $cnt$1&255;
+     HEAP8[$207>>0] = $215;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 6:  {
+     HEAP32[$207>>2] = $cnt$1;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 0:  {
+     HEAP32[$207>>2] = $cnt$1;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 1:  {
+     HEAP32[$207>>2] = $cnt$1;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 7:  {
+     $216 = ($cnt$1|0)<(0);
+     $217 = $216 << 31 >> 31;
+     $218 = $207;
+     $219 = $218;
+     HEAP32[$219>>2] = $cnt$1;
+     $220 = (($218) + 4)|0;
+     $221 = $220;
+     HEAP32[$221>>2] = $217;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    case 2:  {
+     $208 = ($cnt$1|0)<(0);
+     $209 = $208 << 31 >> 31;
+     $210 = $207;
+     $211 = $210;
+     HEAP32[$211>>2] = $cnt$1;
+     $212 = (($210) + 4)|0;
+     $213 = $212;
+     HEAP32[$213>>2] = $209;
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+     break;
+    }
+    default: {
+     $1045 = $229;$1046 = $207;$22 = $139;$cnt$0 = $cnt$1;$l$0 = $36;$l10n$0 = $l10n$3;
+     continue L1;
+    }
+    }
+    break;
+   }
+   case 112:  {
+    $222 = ($p$0>>>0)>(8);
+    $223 = $222 ? $p$0 : 8;
+    $224 = $fl$1$ | 8;
+    $fl$3 = $224;$p$1 = $223;$t$1 = 120;
+    label = 77;
+    break;
+   }
+   case 111:  {
+    $249 = $207;
+    $250 = ($249|0)==(0);
+    $251 = ($229|0)==(0);
+    $252 = $250 & $251;
+    if ($252) {
+     $$0$lcssa$i43 = $2;
+    } else {
+     $$03$i40 = $2;$254 = $249;$258 = $229;
+     while(1) {
+      $253 = $254 & 7;
+      $255 = $253 | 48;
+      $256 = $255&255;
+      $257 = (($$03$i40) + -1|0);
+      HEAP8[$257>>0] = $256;
+      $259 = (_bitshift64Lshr(($254|0),($258|0),3)|0);
+      $260 = tempRet0;
+      $261 = ($259|0)==(0);
+      $262 = ($260|0)==(0);
+      $263 = $261 & $262;
+      if ($263) {
+       $$0$lcssa$i43 = $257;
+       break;
+      } else {
+       $$03$i40 = $257;$254 = $259;$258 = $260;
+      }
+     }
+    }
+    $264 = $fl$1$ & 8;
+    $265 = ($264|0)==(0);
+    if ($265) {
+     $308 = $207;$311 = $229;$a$0 = $$0$lcssa$i43;$fl$4 = $fl$1$;$p$2 = $p$0;$pl$1 = 0;$prefix$1 = 4256;
+     label = 94;
+    } else {
+     $$13 = $252 ? 4256 : ((4256 + 5|0));
+     $266 = $252&1;
+     $$14 = $266 ^ 1;
+     $308 = $207;$311 = $229;$a$0 = $$0$lcssa$i43;$fl$4 = $fl$1$;$p$2 = $p$0;$pl$1 = $$14;$prefix$1 = $$13;
+     label = 94;
+    }
+    break;
+   }
    default: {
     $1053 = $229;$1054 = $207;$a$2 = $22;$fl$6 = $fl$1$;$p$5 = $p$0;$pl$2 = 0;$prefix$2 = 4256;$z$2 = $2;
    }
@@ -23550,39 +23550,6 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
     if (!($984)) {
      do {
       switch ($981|0) {
-      case 16:  {
-       $arglist_current56 = HEAP32[$ap>>2]|0;
-       $1031 = HEAP32[$arglist_current56>>2]|0;
-       $arglist_next57 = (($arglist_current56) + 4|0);
-       HEAP32[$ap>>2] = $arglist_next57;
-       $$mask$i = $1031 & 255;
-       $1032 = $983;
-       $1033 = $1032;
-       HEAP32[$1033>>2] = $$mask$i;
-       $1034 = (($1032) + 4)|0;
-       $1035 = $1034;
-       HEAP32[$1035>>2] = 0;
-       break L531;
-       break;
-      }
-      case 17:  {
-       $arglist_current59 = HEAP32[$ap>>2]|0;
-       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current59>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current59+4>>2];$1036 = +HEAPF64[tempDoublePtr>>3];
-       $arglist_next60 = (($arglist_current59) + 8|0);
-       HEAP32[$ap>>2] = $arglist_next60;
-       HEAPF64[$983>>3] = $1036;
-       break L531;
-       break;
-      }
-      case 18:  {
-       $arglist_current62 = HEAP32[$ap>>2]|0;
-       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current62>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current62+4>>2];$1037 = +HEAPF64[tempDoublePtr>>3];
-       $arglist_next63 = (($arglist_current62) + 8|0);
-       HEAP32[$ap>>2] = $arglist_next63;
-       HEAPF64[$983>>3] = $1037;
-       break L531;
-       break;
-      }
       case 15:  {
        $arglist_current53 = HEAP32[$ap>>2]|0;
        $1022 = HEAP32[$arglist_current53>>2]|0;
@@ -23613,6 +23580,39 @@ function _printf_core($f,$fmt,$ap,$nl_arg,$nl_type) {
        $1020 = (($1018) + 4)|0;
        $1021 = $1020;
        HEAP32[$1021>>2] = 0;
+       break L531;
+       break;
+      }
+      case 17:  {
+       $arglist_current59 = HEAP32[$ap>>2]|0;
+       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current59>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current59+4>>2];$1036 = +HEAPF64[tempDoublePtr>>3];
+       $arglist_next60 = (($arglist_current59) + 8|0);
+       HEAP32[$ap>>2] = $arglist_next60;
+       HEAPF64[$983>>3] = $1036;
+       break L531;
+       break;
+      }
+      case 18:  {
+       $arglist_current62 = HEAP32[$ap>>2]|0;
+       HEAP32[tempDoublePtr>>2]=HEAP32[$arglist_current62>>2];HEAP32[tempDoublePtr+4>>2]=HEAP32[$arglist_current62+4>>2];$1037 = +HEAPF64[tempDoublePtr>>3];
+       $arglist_next63 = (($arglist_current62) + 8|0);
+       HEAP32[$ap>>2] = $arglist_next63;
+       HEAPF64[$983>>3] = $1037;
+       break L531;
+       break;
+      }
+      case 16:  {
+       $arglist_current56 = HEAP32[$ap>>2]|0;
+       $1031 = HEAP32[$arglist_current56>>2]|0;
+       $arglist_next57 = (($arglist_current56) + 4|0);
+       HEAP32[$ap>>2] = $arglist_next57;
+       $$mask$i = $1031 & 255;
+       $1032 = $983;
+       $1033 = $1032;
+       HEAP32[$1033>>2] = $$mask$i;
+       $1034 = (($1032) + 4)|0;
+       $1035 = $1034;
+       HEAP32[$1035>>2] = 0;
        break L531;
        break;
       }
