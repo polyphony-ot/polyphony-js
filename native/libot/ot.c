@@ -324,8 +324,15 @@ uint32_t ot_size(const ot_op* op) {
     ot_comp* comps = op->comps.data;
     for (size_t i = 0; i < op->comps.len; ++i) {
         ot_comp* comp = comps + i;
-        if (comp->type == OT_INSERT) {
+        switch (comp->type) {
+        case OT_INSERT:
             size += strlen(comp->value.insert.text);
+            break;
+        case OT_DELETE:
+            size -= comp->value.delete.count;
+            break;
+        default:
+            break;
         }
     }
 

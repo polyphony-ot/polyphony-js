@@ -383,7 +383,7 @@ static bool size_with_empty_op(char** msg) {
     return true;
 }
 
-static bool size_equals_length_of_snapshot(char** msg) {
+static bool size_of_op_with_only_inserts_equals_length_of_snapshot(char** msg) {
     const char* const NONEMPTY_STRING = "abc";
 
     ot_op* op = ot_new_op();
@@ -399,6 +399,36 @@ static bool size_equals_length_of_snapshot(char** msg) {
 
     ot_free_op(op);
     free(snapshot);
+    return true;
+}
+
+static bool size_with_delete(char** msg) {
+    const int EXPECTED_SIZE = -1;
+    const int DELETE_COUNT = 1;
+
+    ot_op* op = ot_new_op();
+    ot_delete(op, DELETE_COUNT);
+    uint32_t actual_size = ot_size(op);
+
+    ASSERT_INT_EQUAL(EXPECTED_SIZE, actual_size, "Unexpected op size.", msg);
+
+    ot_free_op(op);
+    return true;
+}
+
+static bool size_with_delete_and_insert(char** msg) {
+    const int EXPECTED_SIZE = 0;
+    const int DELETE_COUNT = 1;
+    const char* const INSERT_TEXT = "a";
+
+    ot_op* op = ot_new_op();
+    ot_insert(op, INSERT_TEXT);
+    ot_delete(op, DELETE_COUNT);
+    uint32_t actual_size = ot_size(op);
+
+    ASSERT_INT_EQUAL(EXPECTED_SIZE, actual_size, "Unexpected op size.", msg);
+
+    ot_free_op(op);
     return true;
 }
 
@@ -423,7 +453,9 @@ results ot_tests() {
     RUN_TEST(dup_duplicates_op_with_one_component);
     RUN_TEST(size_with_one_insert);
     RUN_TEST(size_with_empty_op);
-    RUN_TEST(size_equals_length_of_snapshot);
+    RUN_TEST(size_of_op_with_only_inserts_equals_length_of_snapshot);
+    RUN_TEST(size_with_delete);
+    RUN_TEST(size_with_delete_and_insert);
 
     return (results) { passed, failed };
 }
