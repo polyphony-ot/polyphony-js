@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "ot.h"
 #include "hex.h"
+#include "utf8.h"
 
 static void ot_free_fmtbound(ot_comp_fmtbound* fmtbound) {
     ot_fmt* start_data = fmtbound->start.data;
@@ -339,6 +340,25 @@ uint32_t ot_size(const ot_op* op) {
     return size;
 }
 
+uint32_t ot_comp_size(const ot_comp* comp) {
+    switch (comp->type) {
+        case OT_SKIP:
+            return comp->value.skip.count;
+        case OT_INSERT:
+            return utf8_length(comp->value.insert.text);
+        case OT_DELETE:
+            return comp->value.delete.count;
+        case OT_OPEN_ELEMENT:
+            break;
+        case OT_CLOSE_ELEMENT:
+            break;
+        case OT_FORMATTING_BOUNDARY:
+            break;
+    }
+
+    return -1;
+}
+
 void ot_iter_init(ot_iter* iter, const ot_op* op) {
     iter->op = op;
     iter->started = false;
@@ -375,26 +395,8 @@ bool ot_iter_skip(ot_iter* iter, size_t count) {
     }
 
     for (size_t i = 0; i < count;) {
-        size_t max = 0;
         ot_comp* comp = ((ot_comp*)iter->op->comps.data) + iter->pos;
-        if (comp->type == OT_SKIP) {
-            ot_comp_skip skip = comp->value.skip;
-            max = (size_t)skip.count;
-        } else if (comp->type == OT_INSERT) {
-            ot_comp_insert insert = comp->value.insert;
-            max = strlen(insert.text);
-        } else if (comp->type == OT_DELETE) {
-            ot_comp_delete delete = comp->value.delete;
-            max = (size_t) delete.count;
-        } else if (comp->type == OT_OPEN_ELEMENT) {
-            max = 0;
-        } else if (comp->type == OT_CLOSE_ELEMENT) {
-            max = 0;
-        } else if (comp->type == OT_FORMATTING_BOUNDARY) {
-            max = 0;
-        } else {
-            assert(!"Iterator doesn't know how to handle this component type.");
-        }
+        size_t max = ot_comp_size(comp);
 
         if (!ot_iter_adv(iter, count, max)) {
             return false;

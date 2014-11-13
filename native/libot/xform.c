@@ -31,13 +31,15 @@ static delta_pair ot_xform_skip_skip(ot_comp_skip skip1, size_t offset1,
 static delta_pair ot_xform_skip_insert(ot_comp_insert ins, size_t ins_offset,
                                        ot_xform_pair xform) {
 
-    size_t ins_len = strlen(ins.text) - ins_offset;
+    size_t ins_len = utf8_length(ins.text) - ins_offset;
 
     ot_skip(xform.op1_prime, (uint32_t)ins_len);
 
-    char* substr = malloc(sizeof(char) * ins_len + 1);
-    memcpy(substr, ins.text + ins_offset, ins_len);
-    substr[ins_len] = '\0';
+    char* str_start = ins.text + utf8_bytes(ins.text, ins_offset);
+    size_t copy_len = strlen(str_start);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(xform.op2_prime, substr);
     free(substr);
 
@@ -79,13 +81,15 @@ static delta_pair ot_xform_insert_insert(ot_comp_insert op1_insert,
                                          size_t op1_offset,
                                          ot_xform_pair xform) {
 
-    size_t len = strlen(op1_insert.text) - op1_offset;
+    size_t len = utf8_length(op1_insert.text) - op1_offset;
 
     ot_skip(xform.op2_prime, (uint32_t)len);
 
-    char* substr = malloc(sizeof(char) * len + 1);
-    memcpy(substr, op1_insert.text + op1_offset, len);
-    substr[len] = '\0';
+    char* str_start = op1_insert.text + utf8_bytes(op1_insert.text, op1_offset);
+    size_t copy_len = strlen(str_start);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(xform.op1_prime, substr);
     free(substr);
 
@@ -95,13 +99,15 @@ static delta_pair ot_xform_insert_insert(ot_comp_insert op1_insert,
 static delta_pair ot_xform_insert_delete(ot_comp_insert ins, size_t ins_offset,
                                          ot_xform_pair xform) {
 
-    size_t ins_len = strlen(ins.text) - ins_offset;
+    size_t ins_len = utf8_length(ins.text) - ins_offset;
 
     ot_skip(xform.op2_prime, (uint32_t)ins_len);
 
-    char* substr = malloc(sizeof(char) * ins_len + 1);
-    memcpy(substr, ins.text + ins_offset, ins_len);
-    substr[ins_len] = '\0';
+    char* str_start = ins.text + utf8_bytes(ins.text, ins_offset);
+    size_t copy_len = strlen(str_start);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(xform.op1_prime, substr);
     free(substr);
 

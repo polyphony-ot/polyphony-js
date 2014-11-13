@@ -26,21 +26,20 @@ static pair ot_compose_skip_skip(ot_comp_skip skip1, size_t offset1,
     return (pair) { min_len, min_len };
 }
 
-static pair ot_compose_skip_insert(ot_comp_skip skip, size_t skip_offset,
-                                   ot_comp_insert insert, size_t insert_offset,
+static pair ot_compose_skip_insert(ot_comp_insert insert, size_t insert_offset,
                                    ot_op* composed) {
 
-    size_t insert_len = strlen(insert.text) - insert_offset;
-    size_t skip_len = (size_t)skip.count - skip_offset;
-    size_t min_len = min(skip_len, insert_len);
+    size_t insert_len = utf8_length(insert.text) - insert_offset;
 
-    char* substr = malloc(sizeof(char) * min_len + 1);
-    memcpy(substr, insert.text + insert_offset, min_len);
-    substr[min_len] = '\0';
+    char* str_start = insert.text + utf8_bytes(insert.text, insert_offset);
+    size_t copy_len = strlen(str_start);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(composed, substr);
     free(substr);
 
-    return (pair) { 0, min_len };
+    return (pair) { 0, insert_len };
 }
 
 static pair ot_compose_skip_delete(ot_comp_skip skip, size_t skip_offset,
@@ -60,13 +59,15 @@ static pair ot_compose_insert_skip(ot_comp_insert insert, size_t insert_offset,
                                    ot_comp_skip skip, size_t skip_offset,
                                    ot_op* composed) {
 
-    size_t insert_len = strlen(insert.text) - insert_offset;
+    size_t insert_len = utf8_length(insert.text) - insert_offset;
     size_t skip_len = (size_t)skip.count - skip_offset;
     size_t min_len = min(skip_len, insert_len);
 
-    char* substr = malloc(sizeof(char) * min_len + 1);
-    memcpy(substr, insert.text + insert_offset, min_len);
-    substr[min_len] = '\0';
+    char* str_start = insert.text + utf8_bytes(insert.text, insert_offset);
+    size_t copy_len = utf8_bytes(str_start, min_len);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(composed, substr);
     free(substr);
 
@@ -77,13 +78,15 @@ static pair ot_compose_insert_insert(ot_comp_insert insert1, size_t offset1,
                                      ot_comp_insert insert2, size_t offset2,
                                      ot_op* composed) {
 
-    size_t insert1_len = strlen(insert1.text) - offset1;
-    size_t insert2_len = strlen(insert2.text) - offset2;
+    size_t insert1_len = utf8_length(insert1.text) - offset1;
+    size_t insert2_len = utf8_length(insert2.text) - offset2;
     size_t min_len = min(insert1_len, insert2_len);
 
-    char* substr = malloc(sizeof(char) * min_len + 1);
-    memcpy(substr, insert2.text + offset2, min_len);
-    substr[min_len] = '\0';
+    char* str_start = insert2.text + utf8_bytes(insert2.text, offset2);
+    size_t copy_len = utf8_bytes(str_start, min_len);
+    char* substr = malloc(sizeof(char) * copy_len + 1);
+    memcpy(substr, str_start, copy_len);
+    substr[copy_len] = '\0';
     ot_insert(composed, substr);
     free(substr);
 
@@ -93,7 +96,7 @@ static pair ot_compose_insert_insert(ot_comp_insert insert1, size_t offset1,
 static pair ot_compose_insert_delete(ot_comp_insert ins, size_t ins_offset,
                                      ot_comp_delete del, size_t del_offset) {
 
-    size_t ins_len = strlen(ins.text) - ins_offset;
+    size_t ins_len = utf8_length(ins.text) - ins_offset;
     size_t del_len = (size_t)del.count - del_offset;
     size_t min_len = min(ins_len, del_len);
 
@@ -145,7 +148,7 @@ ot_op* ot_compose(ot_op* op1, ot_op* op2) {
                 assert(!"Both op components should never be NULL.");
             } else if (op2_comp->type == OT_INSERT) {
                 ot_insert(composed, op2_comp->value.insert.text);
-                size_t len = strlen(op2_comp->value.insert.text);
+                size_t len = utf8_length(op2_comp->value.insert.text);
                 op2_next = ot_iter_skip(&op2_iter, len);
             } else if (op2_comp->type == OT_OPEN_ELEMENT) {
                 // TODO: Stub
@@ -188,8 +191,7 @@ ot_op* ot_compose(ot_op* op1, ot_op* op2) {
             } else if (op2_comp->type == OT_INSERT) {
                 ot_comp_insert op2_insert = op2_comp->value.insert;
 
-                pair p = ot_compose_skip_insert(op1_skip, op1_iter.offset,
-                                                op2_insert, op2_iter.offset,
+                pair p = ot_compose_skip_insert(op2_insert, op2_iter.offset,
                                                 composed);
 
                 op1_next = ot_iter_skip(&op1_iter, p.first);

@@ -27,6 +27,7 @@ SOURCES=\
 	xform.c \
 	sha1.c \
 	doc.c \
+	utf8.c \
 	cjson/cJSON.c
 
 # List of sources for test scenarios.

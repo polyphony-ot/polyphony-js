@@ -5,6 +5,7 @@
 #include <string.h>
 #include <assert.h>
 #include "ot.h"
+#include "utf8.h"
 
 ot_op* ot_compose(ot_op* op1, ot_op* op2);
 
