@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ot.h"
+#include "utf8.h"
 
 typedef struct ot_xform_pair {
     ot_op* op1_prime;

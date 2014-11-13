@@ -133,6 +133,7 @@ void ot_start_fmt(ot_op* op, const char* name, const char* value);
 void ot_end_fmt(ot_op* op, const char* name, const char* value);
 char* ot_snapshot(ot_op* op);
 uint32_t ot_size(const ot_op* op);
+uint32_t ot_comp_size(const ot_comp* comp);
 
 ot_comp_fmtbound* ot_new_fmtbound();
 

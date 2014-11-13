@@ -36,8 +36,8 @@ static bool param_xform_test(ot_op* initial, ot_op* op1, ot_op* op2,
 }
 
 static bool xform_skip_skip(char** msg) {
-    const char* const NONEMPTY_STRING = "abc";
-    const int string_length = strlen(NONEMPTY_STRING);
+    const char* const NONEMPTY_STRING = "abcこんにちは";
+    const int string_length = utf8_length(NONEMPTY_STRING);
 
     ot_op* initial = ot_new_op();
     ot_insert(initial, NONEMPTY_STRING);
@@ -55,10 +55,10 @@ static bool xform_skip_skip(char** msg) {
 }
 
 static bool xform_skip_insert(char** msg) {
-    const char* const INSERT1 = "def";
-    const char* const INSERT2 = "abc";
-    const char* const EXPECTED_INSERT = "abcdef";
-    const int insert1_length = strlen(INSERT1);
+    const char* const INSERT1 = "こんにちはdef";
+    const char* const INSERT2 = "こんにちはabc";
+    const char* const EXPECTED_INSERT = "こんにちはabcこんにちはdef";
+    const int insert1_length = utf8_length(INSERT1);
 
     ot_op* initial = ot_new_op();
     ot_insert(initial, INSERT1);
@@ -77,8 +77,8 @@ static bool xform_skip_insert(char** msg) {
 }
 
 static bool xform_skip_delete(char** msg) {
-    const char* const NONEMPTY_STRING = "abc";
-    const int string_length = strlen(NONEMPTY_STRING);
+    const char* const NONEMPTY_STRING = "abcこんにちは";
+    const int string_length = utf8_length(NONEMPTY_STRING);
 
     ot_op* initial = ot_new_op();
     ot_insert(initial, NONEMPTY_STRING);
@@ -95,9 +95,9 @@ static bool xform_skip_delete(char** msg) {
 }
 
 static bool xform_insert_insert(char** msg) {
-    const char* const INSERT1 = "abc";
-    const char* const INSERT2 = "def";
-    const char* const EXPECTED_INSERT = "abcdef";
+    const char* const INSERT1 = "こんにちはabc";
+    const char* const INSERT2 = "こんにちはdef";
+    const char* const EXPECTED_INSERT = "こんにちはabcこんにちはdef";
 
     ot_op* initial = ot_new_op();
 
@@ -114,10 +114,10 @@ static bool xform_insert_insert(char** msg) {
 }
 
 static bool xform_insert_delete(char** msg) {
-    const char* const INITIAL = "abc";
-    const char* const INSERT = "def";
-    const int initial_length = strlen(INITIAL);
-    const int insert_length = strlen(INSERT);
+    const char* const INITIAL = "こんにちはabc";
+    const char* const INSERT = "こんにちはdef";
+    const int initial_length = utf8_length(INITIAL);
+    const int insert_length = utf8_length(INSERT);
 
     ot_op* initial = ot_new_op();
     ot_insert(initial, INITIAL);
@@ -136,8 +136,8 @@ static bool xform_insert_delete(char** msg) {
 }
 
 static bool xform_delete_delete(char** msg) {
-    const char* const INITIAL = "abc";
-    const int initial_length = strlen(INITIAL);
+    const char* const INITIAL = "abcこんにちは";
+    const int initial_length = utf8_length(INITIAL);
 
     ot_op* initial = ot_new_op();
     ot_insert(initial, INITIAL);
